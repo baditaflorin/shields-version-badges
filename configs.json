@@ -6,9 +6,9 @@
     "output": "outline-status.json"
   },
   {
-    "name": "MyOtherApp",
-    "repo": "owner/myotherapp",
-    "current": "1.2.0",
-    "output": "myotherapp-status.json"
+    "name": "Termix",
+    "repo": "LukeGus/Termix",
+    "current": "release-1.5.0-tag",
+    "output": "termix-status.json"
   }
 ]
