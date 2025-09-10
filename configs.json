@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Outline",
+    "repo": "outline/outline",
+    "current": "v0.84",
+    "output": "outline-status.json"
+  },
+  {
+    "name": "MyOtherApp",
+    "repo": "owner/myotherapp",
+    "current": "1.2.0",
+    "output": "myotherapp-status.json"
+  }
+]
