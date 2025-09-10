@@ -9,13 +9,20 @@ function fetchJSON(url) {
             (res) => {
                 let data = "";
                 res.on("data", (chunk) => (data += chunk));
-                res.on("end", () => resolve(JSON.parse(data)));
+                res.on("end", () => {
+                    try {
+                        resolve(JSON.parse(data));
+                    } catch (e) {
+                        reject(new Error("Invalid JSON response"));
+                    }
+                });
             }
         ).on("error", reject);
     });
 }
 
 function compareVersions(a, b) {
+    if (!a || !b) return 0; // fallback to equal if invalid
     const pa = a.replace(/^v/, "").split(".").map(Number);
     const pb = b.replace(/^v/, "").split(".").map(Number);
     for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
@@ -29,11 +36,28 @@ function compareVersions(a, b) {
     const configs = JSON.parse(fs.readFileSync("configs.json", "utf-8"));
 
     for (const cfg of configs) {
-        const url = `https://api.github.com/repos/${cfg.repo}/releases/latest`;
-        const release = await fetchJSON(url);
-        const latest = release.tag_name;
+        if (!cfg.current) {
+            console.error(`No current version specified for ${cfg.repo}`);
+            continue;
+        }
 
+        const url = `https://api.github.com/repos/${cfg.repo}/releases/latest`;
+        let release;
+        try {
+            release = await fetchJSON(url);
+        } catch (err) {
+            console.error(`Failed to fetch release for ${cfg.repo}: ${err.message}`);
+            continue;
+        }
+
+        if (!release.tag_name) {
+            console.error(`No tag_name found for ${cfg.repo}`);
+            continue;
+        }
+
+        const latest = release.tag_name;
         let status;
+
         if (compareVersions(cfg.current, latest) < 0) {
             status = {
                 schemaVersion: 1,
