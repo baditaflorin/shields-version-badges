@@ -10,5 +10,11 @@
     "repo": "LukeGus/Termix",
     "current": "release-1.5.0-tag",
     "output": "termix-status.json"
+  },
+  {
+    "name": "Nginx Proxy Manager",
+    "repo": "NginxProxyManager/nginx-proxy-manager",
+    "current": "v2.12.3",
+    "output": "nginxproxymanager-status.json"
   }
 ]
