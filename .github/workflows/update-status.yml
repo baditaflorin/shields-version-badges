@@ -6,17 +6,22 @@ on:
   workflow_dispatch:
 
 permissions:
-contents: write
+  contents: write
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+
       - run: node update.js
+
       - name: Commit and push
         run: |
           git config --global user.name "github-actions[bot]"
