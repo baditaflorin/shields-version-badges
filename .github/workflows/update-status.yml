@@ -23,3 +23,5 @@ jobs:
           git add *.json
           git commit -m "Update Shields badges" || echo "No changes"
           git push
+      - env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
