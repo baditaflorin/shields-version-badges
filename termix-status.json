@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "Termix",
-  "message": "release-1.5.0-tag (up to date)",
-  "color": "brightgreen"
+  "message": "release-1.5.0-tag → release-1.6.0-tag (update available)",
+  "color": "orange"
 }
